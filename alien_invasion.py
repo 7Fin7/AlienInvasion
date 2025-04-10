@@ -21,6 +21,9 @@ class AlienInvasion:
         # Create a Clock object to manage how fast the screen updates (frame rate)
         self.clock = pygame.time.Clock()
 
+        # Set the background colour
+        self.bg_color = (230, 230, 230)
+
     def run_game(self):
         """Start the main loop for the game."""
         
@@ -32,6 +35,9 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     # Exit the game if the window is closed
                     sys.exit()
+
+            # Updates the background colour
+            self.screen.fill(self.bg_color)
 
             # Update the screen with the latest drawings and changes
             pygame.display.flip()
