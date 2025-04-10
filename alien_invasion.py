@@ -18,6 +18,9 @@ class AlienInvasion:
         # Set the title of the game window
         pygame.display.set_caption("Alien Invasion")
 
+        # Create a Clock object to manage how fast the screen updates (frame rate)
+        self.clock = pygame.time.Clock()
+
     def run_game(self):
         """Start the main loop for the game."""
         
@@ -32,6 +35,9 @@ class AlienInvasion:
 
             # Update the screen with the latest drawings and changes
             pygame.display.flip()
+
+            # Limit the game loop to a maximum of 60 frames per second
+            self.clock.tick(60)
 
 
 # Only run the game if this file is executed directly (not imported)
