@@ -38,23 +38,33 @@ class AlienInvasion:
         # Event: action that the user performs while playing the game, key, mouse press
 
         while True:
-            # Handle events like key presses and mouse clicks - event loop
-            for event in pygame.event.get():
+
+            # Call methods for event loop and updating screen
+            self._check_events()
+            self._update_screen()
+
+            # Limit the game loop to a maximum of 60 frames per second
+            self.clock.tick(60)
+
+    
+    def _check_events(self):
+        """Respond to keypresses and mouse event; event loop."""
+        for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     # Exit the game if the window is closed
                     sys.exit()
 
-            # Updates the background colour
-            self.screen.fill(self.settings.bg_colour)
+    def _update_screen(self):
+        """Updates images on the screen, and flip to the new screen."""
+        
+        # Updates the background colour
+        self.screen.fill(self.settings.bg_colour)
 
-            # Draw the ship on the screen
-            self.ship.blitme()
+        # Draw the ship on the screen
+        self.ship.blitme()
 
-            # Update the screen with the latest drawings and changes
-            pygame.display.flip()
-
-            # Limit the game loop to a maximum of 60 frames per second
-            self.clock.tick(60)
+        # Update the screen with the latest drawings and changes
+        pygame.display.flip()
 
 
 # Only run the game if this file is executed directly (not imported)
