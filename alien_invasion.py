@@ -39,8 +39,9 @@ class AlienInvasion:
 
         while True:
 
-            # Call methods for event loop and updating screen
+            # Call methods for event loop, right movement and updating screen
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
             # Limit the game loop to a maximum of 60 frames per second
@@ -55,8 +56,12 @@ class AlienInvasion:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
-                        # Move the ship to the right
-                        self.ship.rect.x += 1
+                        # Set right movement flag to true
+                        self.ship.moving_right = True
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        # Set right movement flag to false
+                        self.ship.moving_right = False
 
     def _update_screen(self):
         """Updates images on the screen, and flip to the new screen."""
