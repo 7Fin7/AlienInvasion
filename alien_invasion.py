@@ -55,17 +55,9 @@ class AlienInvasion:
                     # Exit the game if the window is closed
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    # Set movement flag to true
-                    if event.key == pygame.K_RIGHT:
-                        self.ship.moving_right = True
-                    elif event.key == pygame.K_LEFT:
-                        self.ship.moving_left = True
+                    self._check_keydown_events(event)
                 elif event.type == pygame.KEYUP:
-                    # Set movement flag to false
-                    if event.key == pygame.K_RIGHT:
-                        self.ship.moving_right = False
-                    elif event.key == pygame.K_LEFT:
-                        self.ship.moving_left = False
+                    self._check_keyup_events(event)
 
     def _update_screen(self):
         """Updates images on the screen, and flip to the new screen."""
@@ -78,6 +70,21 @@ class AlienInvasion:
 
         # Update the screen with the latest drawings and changes
         pygame.display.flip()
+
+    def _check_keydown_events(self, event):
+        """Respond to keypresses."""
+        # Set movement flag to true
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+
+    def _check_keyup_events(self, event):
+        # Set movement flag to false
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
 
 # Only run the game if this file is executed directly (not imported)
