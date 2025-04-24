@@ -24,7 +24,12 @@ class AlienInvasion:
 
         # Set the dimensions of the game window and create the display surface
         # Surface: part of the screen where a game element can be displayed
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        # Tells Pygame to figure out window that fits full screen
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        
+        # Update screen dimensions after screen is created
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
 
         # Create an instance of ship
         # One parameter: instance of AlienInvasion
