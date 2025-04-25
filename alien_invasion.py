@@ -70,6 +70,10 @@ class AlienInvasion:
         # Updates the background colour
         self.screen.fill(self.settings.bg_colour)
 
+        # Draw bullets on the screen
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        
         # Draw the ship on the screen
         self.ship.blitme()
 
@@ -86,6 +90,9 @@ class AlienInvasion:
         # Press q to quit the game
         elif event.key == pygame.K_q:
             sys.exit()
+        # Fire bullet
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         # Set movement flag to false
@@ -93,6 +100,11 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
 
 # Only run the game if this file is executed directly (not imported)
