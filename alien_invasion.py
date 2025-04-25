@@ -42,20 +42,10 @@ class AlienInvasion:
         # Event: action that the user performs while playing the game, key, mouse press
 
         while True:
-
             # Call methods game
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-
-            # Get rid of bullets that have disappeared.
-            # Loop through copy as Python expects list will stay the same length as long
-            # as the loop is running.
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            
-
+            self._update_bullets()
             self._update_screen()
 
             # Limit the game loop to a maximum of 60 frames per second
@@ -73,6 +63,19 @@ class AlienInvasion:
                 elif event.type == pygame.KEYUP:
                     self._check_keyup_events(event)
 
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+        # Update bullet positions
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared.
+        # Loop through copy as Python expects list will stay the same length as long
+        # as the loop is running.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+    
     def _update_screen(self):
         """Updates images on the screen, and flip to the new screen."""
         
