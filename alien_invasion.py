@@ -55,8 +55,6 @@ class AlienInvasion:
                 if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
             
-            # Verify bullets have been removed from group
-            print(len(self.bullets))
 
             self._update_screen()
 
@@ -114,8 +112,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 
 # Only run the game if this file is executed directly (not imported)
