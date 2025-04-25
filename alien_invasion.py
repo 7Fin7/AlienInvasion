@@ -47,6 +47,17 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+
+            # Get rid of bullets that have disappeared.
+            # Loop through copy as Python expects list will stay the same length as long
+            # as the loop is running.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            
+            # Verify bullets have been removed from group
+            print(len(self.bullets))
+
             self._update_screen()
 
             # Limit the game loop to a maximum of 60 frames per second
