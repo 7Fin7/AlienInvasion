@@ -4,6 +4,7 @@ import pygame  # Contains functionality to make a game
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class AlienInvasion:
     """Overall class to manage game assets and behaviour."""
@@ -31,6 +32,9 @@ class AlienInvasion:
         # self argument refers to current instance of AlienInvasion
         self.ship = Ship(self)
 
+        # Create the group that holds the bullets
+        self.bullets = pygame.sprite.Group()
+
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -39,9 +43,10 @@ class AlienInvasion:
 
         while True:
 
-            # Call methods for event loop, right movement and updating screen
+            # Call methods game
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
             # Limit the game loop to a maximum of 60 frames per second
