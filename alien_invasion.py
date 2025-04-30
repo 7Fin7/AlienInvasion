@@ -73,20 +73,25 @@ class AlienInvasion:
 
         # Keep adding aliens while there is enough horizontal space on the screen
         while current_x < (self.settings.screen_width - 2 * alien_width):
-            # Create a new alien
-            new_alien = Alien(self)
-
-            # Set the alien's x position (float for precise movement later if needed)
-            new_alien.x = current_x
-
-            # Update the rect x position for drawing on the screen
-            new_alien.rect.x = current_x
-
-            # Add the alien to the gorup
-            self.aliens.add(new_alien)
+            # Call method to create alien at give x position
+            self._create_alien(current_x)
 
             # Move to the position for the next alien, leaving a gap equal to one alien width
             current_x += 2 * alien_width
+
+    def _create_alien(self, x_position):
+        """Create an alien and place it in the row."""
+        # Create a new alien
+        new_alien = Alien(self)
+
+        # Set the alien's x position (float for precise movement later if needed)
+        new_alien.x = x_position
+
+        # Update the rect x position for drawing on the screen
+        new_alien.rect.x = x_position
+
+        # Add the alien to the gorup
+        self.aliens.add(new_alien)
     
     def _check_events(self):
         """Respond to keypresses and mouse event; event loop."""
