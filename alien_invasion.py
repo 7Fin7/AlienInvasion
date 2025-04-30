@@ -61,9 +61,32 @@ class AlienInvasion:
     
     def _create_fleet(self):
         """Create the fleet of aliens."""
-        # Create a single alien and add it to the group
+        # Create an alien and keep adding aliens until there's no room left.
+        # Spacing between aliens is on alien width.
+
+        # Create a single alien to get its width (used to calculate how many fit)
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+
+        # Start the first alien at a distance of one alien width from the left
+        current_x = alien_width
+
+        # Keep adding aliens while there is enough horizontal space on the screen
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            # Create a new alien
+            new_alien = Alien(self)
+
+            # Set the alien's x position (float for precise movement later if needed)
+            new_alien.x = current_x
+
+            # Update the rect x position for drawing on the screen
+            new_alien.rect.x = current_x
+
+            # Add the alien to the gorup
+            self.aliens.add(new_alien)
+
+            # Move to the position for the next alien, leaving a gap equal to one alien width
+            current_x += 2 * alien_width
     
     def _check_events(self):
         """Respond to keypresses and mouse event; event loop."""
