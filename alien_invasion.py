@@ -62,24 +62,33 @@ class AlienInvasion:
     def _create_fleet(self):
         """Create the fleet of aliens."""
         # Create an alien and keep adding aliens until there's no room left.
-        # Spacing between aliens is on alien width.
+        # Spacing between aliens is one alien width and one alien height
 
-        # Create a single alien to get its width (used to calculate how many fit)
+        # Create a single alien to get its width and height (used to calculate how many fit)
+        # A rect's size is a tuple of (width, height)
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
 
-        # Start the first alien at a distance of one alien width from the left
-        current_x = alien_width
+        # Initial x- and y-values: one alien width in from the left and one alien height 
+        # down from the top
+        current_x, current_y = alien_width, alien_height
 
-        # Keep adding aliens while there is enough horizontal space on the screen
-        while current_x < (self.settings.screen_width - 2 * alien_width):
-            # Call method to create alien at give x position
-            self._create_alien(current_x)
+        # Keep adding aliens while there is enough vertical space on the screen
+        while current_y < (self.settings.screen_height - 3 * alien_height):
 
-            # Move to the position for the next alien, leaving a gap equal to one alien width
-            current_x += 2 * alien_width
+            # Keep adding aliens while there is enough horizontal space on the screen
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                # Call method to create alien at give x position
+                self._create_alien(current_x, current_y)
 
-    def _create_alien(self, x_position):
+                # Move to the position for the next alien, leaving a gap equal to one alien width
+                current_x += 2 * alien_width
+
+            # Finished a row; reset x value and increment y value
+            current_x = alien_width
+            current_y += 2 * alien_height
+
+    def _create_alien(self, x_position, y_position):
         """Create an alien and place it in the row."""
         # Create a new alien
         new_alien = Alien(self)
@@ -89,6 +98,9 @@ class AlienInvasion:
 
         # Update the rect x position for drawing on the screen
         new_alien.rect.x = x_position
+
+        # Update the rect y position for drawing on the screen
+        new_alien.rect.y = y_position
 
         # Add the alien to the gorup
         self.aliens.add(new_alien)
