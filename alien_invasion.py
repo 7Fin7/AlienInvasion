@@ -89,6 +89,7 @@ class AlienInvasion:
             current_x = alien_width
             current_y += 2 * alien_height
 
+
     def _create_alien(self, x_position, y_position):
         """Create an alien and place it in the row."""
         # Create a new alien
@@ -105,7 +106,30 @@ class AlienInvasion:
 
         # Add the alien to the gorup
         self.aliens.add(new_alien)
+
+
+    def _check_fleet_edges(self):
+        """Respond appropriately if any aliens have reached an edge."""
+        # Loop through all aliens in the fleet
+        for alien in self.aliens.sprites():
+            # If any alien is at the screen edge...
+            if alien.check_edges():
+                # Change the direction of the entire fleet
+                self._change_fleet_direction()
+                # Exit the loop — only one alien needs to trigger the change
+                break
+
+    def _change_fleet_direction(self):
+        """Drop the entire fleet and change the fleet's direction."""
+        # Move every alien in the fleet down by a certain amount
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+
+        # Reverse the fleet's horizontal movement direction
+        # If the fleet was moving right (1), it now moves left (-1), and vice versa
+        self.settings.fleet_direction *= -1
     
+
     def _check_events(self):
         """Respond to keypresses and mouse event; event loop."""
         for event in pygame.event.get():
@@ -116,6 +140,7 @@ class AlienInvasion:
                     self._check_keydown_events(event)
                 elif event.type == pygame.KEYUP:
                     self._check_keyup_events(event)
+
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -129,8 +154,10 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+
     def _update_aliens(self):
-        """Update the positions of all aliens in the fleet."""
+        """Check if the fleet is at an edge, then update positions."""
+        self._check_fleet_edges()
         self.aliens.update()
 
     
@@ -153,6 +180,7 @@ class AlienInvasion:
         # Update the screen with the latest drawings and changes
         pygame.display.flip()
 
+
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
         # Set movement flag to true
@@ -166,6 +194,7 @@ class AlienInvasion:
         # Fire bullet
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+
 
     def _check_keyup_events(self, event):
         # Set movement flag to false
