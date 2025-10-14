@@ -22,13 +22,13 @@ class AlienInvasion:
         # Set the title of the game window
         pygame.display.set_caption("Alien Invasion")
 
-        # Create an instance to store game statistics
-        self.stats = GameStats(self)
-
         # Create a Clock object to manage how fast the screen updates (frame rate)
         self.clock = pygame.time.Clock()
 
         self.settings = Settings()
+
+        # Create an instance to store game statistics
+        self.stats = GameStats(self)
 
         # Set the dimensions of the game window and create the display surface
         # Surface: part of the screen where a game element can be displayed
@@ -186,9 +186,9 @@ class AlienInvasion:
         # Check if the ship has collided with any alien in the group.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             # If a collision is detected, print a message to the console.
-            print("Ship hit!")
+            self._ship_hit()
 
-    def _shop_hit(self):
+    def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
         # Decrement ships_left.
         self.stats.ship_left -= 1
@@ -200,6 +200,9 @@ class AlienInvasion:
         # Create a new fleet and center the ship.
         self._create_fleet()
         self.ship.center_ship()
+
+        # Pause.
+        sleep(0.5)
 
     def _update_screen(self):
         """Updates images on the screen, and flip to the new screen."""
