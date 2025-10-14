@@ -1,8 +1,11 @@
 
 import sys  # Use tools in sys to exit the game when the player quits
+from time import sleep
+
 import pygame  # Contains functionality to make a game
 
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -18,6 +21,9 @@ class AlienInvasion:
 
         # Set the title of the game window
         pygame.display.set_caption("Alien Invasion")
+
+        # Create an instance to store game statistics
+        self.stats = GameStats(self)
 
         # Create a Clock object to manage how fast the screen updates (frame rate)
         self.clock = pygame.time.Clock()
@@ -182,10 +188,21 @@ class AlienInvasion:
             # If a collision is detected, print a message to the console.
             print("Ship hit!")
 
-    
+    def _shop_hit(self):
+        """Respond to the ship being hit by an alien."""
+        # Decrement ships_left.
+        self.stats.ship_left -= 1
+
+        # Get rid of any remaining bullets and aliens.
+        self.bullets.empty()
+        self.aliens.empty()
+
+        # Create a new fleet and center the ship.
+        self._create_fleet()
+        self.ship.center_ship()
+
     def _update_screen(self):
         """Updates images on the screen, and flip to the new screen."""
-        
         # Updates the background colour
         self.screen.fill(self.settings.bg_colour)
 
