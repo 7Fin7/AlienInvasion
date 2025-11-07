@@ -164,7 +164,17 @@ class AlienInvasion:
         """Start a new game when the player clicks Play."""
         # collidepoint() returns True if the given point (x, y) lies within the button’s rect.
         if self.play_button.rect.collidepoint(mouse_pos):
+            # Reset the game statistics
+            self.stats.reset_stats()
             self.game_active = True
+
+            # Get rid of any remaining bullets and aliens
+            self.bullets.empty()
+            self.aliens.empty()
+
+            # Create a new fleet and centre the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
 
     def _update_bullets(self):
