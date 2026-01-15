@@ -166,6 +166,10 @@ class AlienInvasion:
         # collidepoint() returns True if the given point (x, y) lies within the button’s rect.
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
+
+            # Reset the game settings
+            self.settings.initialize_dynamic_settings()
+
             # Reset the game statistics
             self.stats.reset_stats()
             self.game_active = True
