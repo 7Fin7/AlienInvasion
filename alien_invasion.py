@@ -7,6 +7,7 @@ import pygame  # Contains functionality to make a game
 
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -29,12 +30,14 @@ class AlienInvasion:
 
         self.settings = Settings()
 
-        # Create an instance to store game statistics
-        self.stats = GameStats(self)
-
         # Set the dimensions of the game window and create the display surface
         # Surface: part of the screen where a game element can be displayed
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+
+        # Create an instance to store game statistics,
+        # and create a scoreboard
+        self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         # Create an instance of ship
         # One parameter: instance of AlienInvasion
@@ -272,6 +275,9 @@ class AlienInvasion:
 
         # Draw the aliens
         self.aliens.draw(self.screen)
+
+        # Draw the score information
+        self.sb.show_score()
 
         # Draw the play button if the is inactive
         if not self.game_active:
