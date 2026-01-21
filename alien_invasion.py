@@ -212,6 +212,10 @@ class AlienInvasion:
             self.bullets, self.aliens, False, True
         )
 
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+
         # Check if fleet is destroyed and if so create new one
         if not self.aliens:
             # Destroy existing bullets and create new fleet
