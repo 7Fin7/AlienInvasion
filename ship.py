@@ -1,7 +1,7 @@
-
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """A class to manage the ship."""
 
     # Takes in a reference to the current instance of the AlienInvasion class.
@@ -11,6 +11,7 @@ class Ship:
 
         # Access the screen's rect attribute using the get_rect() method.
         # Doing so allows you to place the ship in the correct location.
+        super().__init__()
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
