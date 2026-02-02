@@ -7,6 +7,9 @@ class GameStats:
         self.settings = ai_game.settings
         self.reset_stats()
 
+        # High socre should never be reset
+        self.high_score = 0
+
     # We’ll call this method from __init__() so the statistics are set properly when 
     # the GameStats instance is first created 1. But we’ll also be able to call
     # reset_stats() anytime the player starts a new game.

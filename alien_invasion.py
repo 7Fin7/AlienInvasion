@@ -1,4 +1,3 @@
-# Test
 
 import sys  # Use tools in sys to exit the game when the player quits
 from time import sleep
@@ -221,6 +220,7 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         # Check if fleet is destroyed and if so create new one
         if not self.aliens:
